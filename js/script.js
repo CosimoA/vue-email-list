@@ -13,6 +13,7 @@ createApp({
     data() {
         return {
             mails: [],
+            loading: false,
         }
     },
     methods: {
@@ -24,14 +25,14 @@ createApp({
             axios.get("https://flynn.boolean.careers/exercises/api/random/mail")
                 .then(response => {
                     this.mails.push(response.data.response);
-                    console.log(response.data.response);
-
+                    // console.log(response.data.response);
                     // Se tutte le richieste sono completate
                     if (this.mails.length === 10) {
-                        // Fai qualcosa con tutti gli indirizzi email
+                        this.loading = true;
                         console.log("Tutti gli indirizzi email sono stati generati:", this.mails);
                     }
-            });
+                });
+            // Mi da fastidio che axios non si chiude a livello semantico.
         }
     }
 }).mount('#app')
